@@ -1,6 +1,7 @@
-This gives an instrution on how to generate histograms and plots about HB Timing based on PFG HcalTupleMaker
+This gives an instrution on how to generate histograms and plots about HB Timing based on PFG HcalTupleMaker (Will include HF Timing later)
 
-Github website: https://github.com/HCALPFG/HcalTupleAnalyzer
+> Credits: Project forked from the below,
+> Github website: https://github.com/HCALPFG/HcalTupleAnalyzer
 
 Tasks generally have two categories:
 1. charge averaged timing
@@ -18,15 +19,15 @@ For the analysisClass_HBHETiming_reco.C:
 can generate Method0 and MAHI histograms: method = 1 and 2
 Please check the nmethod=3 in the .C file before run if you want both information
 
-For the analysisClass_HBHETiming_digi.C: [haven't checked consistence with plot script yet, needed to be updated]
+For the analysisClass_HBHETiming_digi.C:
 generate charge average timing by setting nmethod=1. It's not recommended to change this number to 2 or 3 since there's no corresponding codes to plot these histograms.
 
 To run the code, of course you have to compile it by make. Before the make, please make sure you have the file analysisClass.C under the directory src which is a soft link to the .C file you want to run
 And to speed up, you may need to want use batch mode. There's a framework already set up to use by typing cdwork, and cd private/HCAL/PFG/. Here, please change the file path you want to run and replace with correct the executed file. Then run the script, after which you will have outputs under output directory. To combine them into one file, use command: hadd result.root output*.root
 
-Next step is to plot out the histograms. Corresponding, you have tow scripts: plot_reco.py[please use plot_reco_new.py instead] and plot_digi.py(needs to be generated).
+Next step is to plot out the histograms. Corresponding, you have tow scripts: plot_reco.py and plot_digi.py.
 
 Also, people want to know the timing vs Run# which can be done through the file: analysisClass_HBHETiming_run.C, and then plotted by plot_run.py
-Only timing for all channels is included, people want to know separate information for different ietas.(This is part in UNDONE now.)
+Only timing for all channels is included, people want to know separate information for different ietas.
 
 Note, whatever you change in the .C file, please make sure to edit in the plot script accordingly.
