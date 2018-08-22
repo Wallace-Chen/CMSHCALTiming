@@ -1,8 +1,8 @@
 COMP=g++
-FLAGS=-std=c++11
+FLAGS=-std=c++11 -std=c++1y -std=gnu++1y
 ROOTINC= -I`root-config --incdir`
 ROOTLIBS=  `root-config --glibs --cflags | sed 's/-pthread//g'` -lMinuit 
-INC= -I./include 
+INC= -I./include
 LIBS= ${ROOTLIBS} 
 SRC= ./src
 BASE_OBJECTS=$(SRC)/analysisClass.o $(SRC)/baseClass.o $(SRC)/Object.o $(SRC)/Collection.o $(SRC)/Cell.o

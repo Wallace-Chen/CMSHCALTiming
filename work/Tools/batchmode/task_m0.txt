@@ -1,0 +1,1 @@
+/eos/cms/store/user/yuanc/JetHT/Run2018B-v1_RAW_20180717_001849/180716_221913/0000/results*.root

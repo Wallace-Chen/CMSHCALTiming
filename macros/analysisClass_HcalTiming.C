@@ -23,18 +23,18 @@ void analysisClass::loop(){
   tuple_tree -> fChain -> SetBranchStatus("run"             , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("event"           , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("ls"              , kTRUE);
-  tuple_tree -> fChain -> SetBranchStatus("HFDigiFC"                  , kTRUE);
-  tuple_tree -> fChain -> SetBranchStatus("HFDigiDepth"               , kTRUE);
-  tuple_tree -> fChain -> SetBranchStatus("HFDigiIEta"                , kTRUE);
-  tuple_tree -> fChain -> SetBranchStatus("HFDigiIPhi"                , kTRUE);
-  tuple_tree -> fChain -> SetBranchStatus("HFDigiRecEnergy"           , kTRUE);
-  tuple_tree -> fChain -> SetBranchStatus("HFDigiRecTime"             , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("HFDigiFC"                  , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("HFDigiDepth"               , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("HFDigiIEta"                , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("HFDigiIPhi"                , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("HFDigiRecEnergy"           , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("HFDigiRecTime"             , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("HBHEDigiFC"                , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("HBHEDigiIEta"              , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("HBHEDigiIPhi"              , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("HBHEDigiDepth"             , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("HBHEDigiRecEnergy"         , kTRUE);
-  tuple_tree -> fChain -> SetBranchStatus("FEDBCN"        , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("FEDBCN"        , kTRUE);
  
   //--------------------------------------------------------------------------------
   // Prepare the histograms and variables

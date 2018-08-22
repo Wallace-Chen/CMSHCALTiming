@@ -27,6 +27,20 @@ class HBHEDigi : public HcalDigi {
   int dv (int i);
   int er (int i);
   int capid (int i);
+  float digienergy(int i);
+// Add RecHit Info for HBHE
+  float RecHitEnergy();
+  float RecHitTime ();
+  int   RecHitIeta();
+  int   RecHitIphi();
+  int   RecHitDepth();
+  float RecHitEnergyMethod0();
+  float RecHitTimeMethod0 ();
+// END
+  int   run();
+  int   bx();
+  int   ls();
+  int   event();
   
   int getRawIndex () { return m_raw_index; }
 

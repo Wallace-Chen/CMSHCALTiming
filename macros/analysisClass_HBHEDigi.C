@@ -13,7 +13,7 @@ void analysisClass::loop(){
   // Declare HCAL tree(s)
   //--------------------------------------------------------------------------------
 
-  HcalTupleTree * tuple_tree = getTree<HcalTupleTree>("skim_tree");
+  HcalTupleTree * tuple_tree = getTree<HcalTupleTree>("tuple_tree");
   int n_events = tuple_tree -> fChain -> GetEntries();
   std::cout << "n events = " << n_events << std::endl;
   
@@ -65,17 +65,26 @@ void analysisClass::loop(){
   for (int i = 0; i < n_events; ++i){
     
     tuple_tree -> GetEntry(i);
-    if ( (i + 1) % 10000 == 0 ) std::cout << "Processing event " << i + 1 << "/" << n_events << std::endl;
+//    if ( (i + 1) % 10000 == 0 ) std::cout << "Processing event " << i + 1 << "/" << n_events << std::endl;
+    std::cout << "Processing event " << i + 1 << "/" << n_events << std::endl;
 
     CollectionPtr hbheDigis (new Collection(*tuple_tree, tuple_tree -> HBHEDigiIEta -> size()));
+    std::cout << "Initialized the collectionptr" << std::endl;
     
     nHBHEDigis = hbheDigis -> GetSize();
+    std::cout << "Get the size is: " << nHBHEDigis << std::endl;
+    std::cout << "Get the size of ieta is: " << tuple_tree -> HBHEDigiIEta -> size() << std::endl;
+    std::cout << "Get the size of energy is: " << tuple_tree -> HBHEDigiRecEnergy -> size() << std::endl;
+//    std::cout << "Get the size is: " << nHBHEDigis << std::endl;
 
     for (int iHBHEDigi = 0; iHBHEDigi < nHBHEDigis; ++iHBHEDigi){
+      std::cout << "Before hbhedigi..." << std::endl;
       HBHEDigi hbheDigi = hbheDigis -> GetConstituent<HBHEDigi>(iHBHEDigi);
+      std::cout << "After hbhegidi..." << std::endl;
 
       if (hbheDigi.energy() < recHitEnergyCut) continue;
       // recHitTiming -> Fill( hbheDigi.recHitTime() );
+      std::cout << "Get the energy is: " << hbheDigi.energy() << std::endl;
       
       double ieta = hbheDigi.ieta();
       double iphi = hbheDigi.iphi();
@@ -85,6 +94,7 @@ void analysisClass::loop(){
       double fc_TS5 = hbheDigi.fc(5);
 
       recHitEnergy -> Fill( hbheDigi.energy() );
+
       occupancy_ts3 -> Fill( ieta , iphi , fc_TS3 );
       occupancy_ts4 -> Fill( ieta , iphi , fc_TS4 );
       noOfDigiHit -> Fill( ieta , iphi );

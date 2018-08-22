@@ -1,0 +1,7 @@
+CURRDIR=/afs/cern.ch/user/y/yuanc/HCAL/PFG_HF_timing/CMSSW_10_2_0_pre2/src/HcalTupleAnalyzer
+FILE=main
+OUTPUT=output_JetHT.root
+
+cd ${CURRDIR}
+eval `./${FILE} ./JetHT_317279.txt config/tree_lists/tree_list.txt ${OUTPUT}`
+cp ${OUTPUT} ${CURRDIR}

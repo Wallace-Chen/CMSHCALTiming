@@ -1,0 +1,4 @@
+CURRDIR=/afs/cern.ch/work/y/yuanc/private/HCAL/PFG/
+
+cd ${CURRDIR}
+./FILE INPUT /afs/cern.ch/user/y/yuanc/HCAL/PFG_HF_timing/CMSSW_10_2_0_pre2/src/HcalTupleAnalyzer/config/tree_lists/tree_list.txt OUTPUT

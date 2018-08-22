@@ -25,6 +25,16 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
 
    // Declaration of leaf types
+// Add RecHits Info for HBHE
+   vector<float>   *HBHERecHitEnergyMethod0;
+   vector<float>   *HBHERecHitTimeMethod0;
+   
+   vector<int>   *HBHERecHitIEta;
+   vector<int>   *HBHERecHitIPhi;
+   vector<int>   *HBHERecHitDepth;
+   vector<float>   *HBHERecHitEnergy;
+   vector<float>   *HBHERecHitTime;
+// End
    vector<float>   *HBHEDigiEta;
    vector<float>   *HBHEDigiPhi;
    vector<float>   *HBHEDigiRecEnergy;
@@ -141,6 +151,16 @@ public :
    UInt_t          HcalUnpackerTotalTPDigis;
 
    // List of branches
+// Add RecHit Info for HBHE
+   TBranch      *b_HBHERecHitIEta;  //!
+   TBranch      *b_HBHERecHitIPhi;  //!
+   TBranch      *b_HBHERecHitDepth; //!
+   TBranch      *b_HBHERecHitEnergy;  //!
+   TBranch      *b_HBHERecHitTime;  //!
+   
+   TBranch      *b_HBHERecHitEnergyMethod0;  //!
+   TBranch      *b_HBHERecHitTimeMethod0;  //!
+// END
    TBranch        *b_HBHEDigiEta;   //!
    TBranch        *b_HBHEDigiPhi;   //!
    TBranch        *b_HBHEDigiRecEnergy;   //!
@@ -322,6 +342,14 @@ void HcalTupleTree::Init(TTree *tree)
    // (once per file to be processed).
 
    // Set object pointer
+   HBHERecHitIEta = 0;
+   HBHERecHitIPhi = 0;
+   HBHERecHitDepth = 0;
+   HBHERecHitEnergy = 0;
+   HBHERecHitTime = 0;
+   HBHERecHitEnergyMethod0 = 0;
+   HBHERecHitTimeMethod0 = 0;
+   
    HBHEDigiEta = 0;
    HBHEDigiPhi = 0;
    HBHEDigiRecEnergy = 0;
@@ -426,18 +454,26 @@ void HcalTupleTree::Init(TTree *tree)
    fCurrent = -1;
    fChain->SetMakeClass(1);
 
+//   fChain->SetBranchAddress("HBHERecHitIEta", &HBHERecHitIEta, &b_HBHERecHitIEta);
+//   fChain->SetBranchAddress("HBHERecHitIPhi", &HBHERecHitIPhi, &b_HBHERecHitIPhi);
+//   fChain->SetBranchAddress("HBHERecHitDepth", &HBHERecHitDepth, &b_HBHERecHitDepth);
+//   fChain->SetBranchAddress("HBHERecHitEnergy", &HBHERecHitEnergy, &b_HBHERecHitEnergy);
+//   fChain->SetBranchAddress("HBHERecHitTime", &HBHERecHitTime, &b_HBHERecHitTime);
+//   fChain->SetBranchAddress("HBHERecHitEnergyMethod0", &HBHERecHitEnergyMethod0, &b_HBHERecHitEnergyMethod0);
+//   fChain->SetBranchAddress("HBHERecHitTimeMethod0", &HBHERecHitTimeMethod0, &b_HBHERecHitTimeMethod0);
+   
    fChain->SetBranchAddress("HBHEDigiEta", &HBHEDigiEta, &b_HBHEDigiEta);
    fChain->SetBranchAddress("HBHEDigiPhi", &HBHEDigiPhi, &b_HBHEDigiPhi);
    fChain->SetBranchAddress("HBHEDigiRecEnergy", &HBHEDigiRecEnergy, &b_HBHEDigiRecEnergy);
    fChain->SetBranchAddress("HBHEDigiRecTime", &HBHEDigiRecTime, &b_HBHEDigiRecTime);
-   fChain->SetBranchAddress("HFDigiEta", &HFDigiEta, &b_HFDigiEta);
-   fChain->SetBranchAddress("HFDigiPhi", &HFDigiPhi, &b_HFDigiPhi);
-   fChain->SetBranchAddress("HFDigiRecEnergy", &HFDigiRecEnergy, &b_HFDigiRecEnergy);
-   fChain->SetBranchAddress("HFDigiRecTime", &HFDigiRecTime, &b_HFDigiRecTime);
-   fChain->SetBranchAddress("HODigiEta", &HODigiEta, &b_HODigiEta);
-   fChain->SetBranchAddress("HODigiPhi", &HODigiPhi, &b_HODigiPhi);
-   fChain->SetBranchAddress("HODigiRecEnergy", &HODigiRecEnergy, &b_HODigiRecEnergy);
-   fChain->SetBranchAddress("HODigiRecTime", &HODigiRecTime, &b_HODigiRecTime);
+//   fChain->SetBranchAddress("HFDigiEta", &HFDigiEta, &b_HFDigiEta);
+//   fChain->SetBranchAddress("HFDigiPhi", &HFDigiPhi, &b_HFDigiPhi);
+//   fChain->SetBranchAddress("HFDigiRecEnergy", &HFDigiRecEnergy, &b_HFDigiRecEnergy);
+//   fChain->SetBranchAddress("HFDigiRecTime", &HFDigiRecTime, &b_HFDigiRecTime);
+//   fChain->SetBranchAddress("HODigiEta", &HODigiEta, &b_HODigiEta);
+//   fChain->SetBranchAddress("HODigiPhi", &HODigiPhi, &b_HODigiPhi);
+//   fChain->SetBranchAddress("HODigiRecEnergy", &HODigiRecEnergy, &b_HODigiRecEnergy);
+//   fChain->SetBranchAddress("HODigiRecTime", &HODigiRecTime, &b_HODigiRecTime);
    fChain->SetBranchAddress("HBHEDigiAllFC", &HBHEDigiAllFC, &b_HBHEDigiAllFC);
    fChain->SetBranchAddress("HBHEDigiEnergy", &HBHEDigiEnergy, &b_HBHEDigiEnergy);
    fChain->SetBranchAddress("HBHEDigiFC", &HBHEDigiFC, &b_HBHEDigiFC);
@@ -445,20 +481,20 @@ void HcalTupleTree::Init(TTree *tree)
    fChain->SetBranchAddress("HBHEDigiNomFC", &HBHEDigiNomFC, &b_HBHEDigiNomFC);
    fChain->SetBranchAddress("HBHEDigiPedFC", &HBHEDigiPedFC, &b_HBHEDigiPedFC);
    fChain->SetBranchAddress("HBHEDigiRCGain", &HBHEDigiRCGain, &b_HBHEDigiRCGain);
-   fChain->SetBranchAddress("HFDigiAllFC", &HFDigiAllFC, &b_HFDigiAllFC);
-   fChain->SetBranchAddress("HFDigiEnergy", &HFDigiEnergy, &b_HFDigiEnergy);
-   fChain->SetBranchAddress("HFDigiFC", &HFDigiFC, &b_HFDigiFC);
-   fChain->SetBranchAddress("HFDigiGain", &HFDigiGain, &b_HFDigiGain);
-   fChain->SetBranchAddress("HFDigiNomFC", &HFDigiNomFC, &b_HFDigiNomFC);
-   fChain->SetBranchAddress("HFDigiPedFC", &HFDigiPedFC, &b_HFDigiPedFC);
-   fChain->SetBranchAddress("HFDigiRCGain", &HFDigiRCGain, &b_HFDigiRCGain);
-   fChain->SetBranchAddress("HODigiAllFC", &HODigiAllFC, &b_HODigiAllFC);
-   fChain->SetBranchAddress("HODigiEnergy", &HODigiEnergy, &b_HODigiEnergy);
-   fChain->SetBranchAddress("HODigiFC", &HODigiFC, &b_HODigiFC);
-   fChain->SetBranchAddress("HODigiGain", &HODigiGain, &b_HODigiGain);
-   fChain->SetBranchAddress("HODigiNomFC", &HODigiNomFC, &b_HODigiNomFC);
-   fChain->SetBranchAddress("HODigiPedFC", &HODigiPedFC, &b_HODigiPedFC);
-   fChain->SetBranchAddress("HODigiRCGain", &HODigiRCGain, &b_HODigiRCGain);
+//   fChain->SetBranchAddress("HFDigiAllFC", &HFDigiAllFC, &b_HFDigiAllFC);
+//   fChain->SetBranchAddress("HFDigiEnergy", &HFDigiEnergy, &b_HFDigiEnergy);
+//   fChain->SetBranchAddress("HFDigiFC", &HFDigiFC, &b_HFDigiFC);
+//   fChain->SetBranchAddress("HFDigiGain", &HFDigiGain, &b_HFDigiGain);
+//   fChain->SetBranchAddress("HFDigiNomFC", &HFDigiNomFC, &b_HFDigiNomFC);
+//   fChain->SetBranchAddress("HFDigiPedFC", &HFDigiPedFC, &b_HFDigiPedFC);
+//   fChain->SetBranchAddress("HFDigiRCGain", &HFDigiRCGain, &b_HFDigiRCGain);
+//   fChain->SetBranchAddress("HODigiAllFC", &HODigiAllFC, &b_HODigiAllFC);
+//   fChain->SetBranchAddress("HODigiEnergy", &HODigiEnergy, &b_HODigiEnergy);
+//   fChain->SetBranchAddress("HODigiFC", &HODigiFC, &b_HODigiFC);
+//   fChain->SetBranchAddress("HODigiGain", &HODigiGain, &b_HODigiGain);
+//   fChain->SetBranchAddress("HODigiNomFC", &HODigiNomFC, &b_HODigiNomFC);
+//   fChain->SetBranchAddress("HODigiPedFC", &HODigiPedFC, &b_HODigiPedFC);
+//   fChain->SetBranchAddress("HODigiRCGain", &HODigiRCGain, &b_HODigiRCGain);
    fChain->SetBranchAddress("HBHEDigiDepth", &HBHEDigiDepth, &b_HBHEDigiDepth);
    fChain->SetBranchAddress("HBHEDigiElectronicsID", &HBHEDigiElectronicsID, &b_HBHEDigiElectronicsID);
    fChain->SetBranchAddress("HBHEDigiFiberIdleOffset", &HBHEDigiFiberIdleOffset, &b_HBHEDigiFiberIdleOffset);
@@ -468,34 +504,34 @@ void HcalTupleTree::Init(TTree *tree)
    fChain->SetBranchAddress("HBHEDigiRawID", &HBHEDigiRawID, &b_HBHEDigiRawID);
    fChain->SetBranchAddress("HBHEDigiSize", &HBHEDigiSize, &b_HBHEDigiSize);
    fChain->SetBranchAddress("HBHEDigiSubdet", &HBHEDigiSubdet, &b_HBHEDigiSubdet);
-   fChain->SetBranchAddress("HFDigiDepth", &HFDigiDepth, &b_HFDigiDepth);
-   fChain->SetBranchAddress("HFDigiElectronicsID", &HFDigiElectronicsID, &b_HFDigiElectronicsID);
-   fChain->SetBranchAddress("HFDigiFiberIdleOffset", &HFDigiFiberIdleOffset, &b_HFDigiFiberIdleOffset);
-   fChain->SetBranchAddress("HFDigiIEta", &HFDigiIEta, &b_HFDigiIEta);
-   fChain->SetBranchAddress("HFDigiIPhi", &HFDigiIPhi, &b_HFDigiIPhi);
-   fChain->SetBranchAddress("HFDigiPresamples", &HFDigiPresamples, &b_HFDigiPresamples);
-   fChain->SetBranchAddress("HFDigiRawID", &HFDigiRawID, &b_HFDigiRawID);
-   fChain->SetBranchAddress("HFDigiSize", &HFDigiSize, &b_HFDigiSize);
-   fChain->SetBranchAddress("HFDigiSubdet", &HFDigiSubdet, &b_HFDigiSubdet);
-   fChain->SetBranchAddress("HODigiDepth", &HODigiDepth, &b_HODigiDepth);
-   fChain->SetBranchAddress("HODigiElectronicsID", &HODigiElectronicsID, &b_HODigiElectronicsID);
-   fChain->SetBranchAddress("HODigiFiberIdleOffset", &HODigiFiberIdleOffset, &b_HODigiFiberIdleOffset);
-   fChain->SetBranchAddress("HODigiIEta", &HODigiIEta, &b_HODigiIEta);
-   fChain->SetBranchAddress("HODigiIPhi", &HODigiIPhi, &b_HODigiIPhi);
-   fChain->SetBranchAddress("HODigiPresamples", &HODigiPresamples, &b_HODigiPresamples);
-   fChain->SetBranchAddress("HODigiRawID", &HODigiRawID, &b_HODigiRawID);
-   fChain->SetBranchAddress("HODigiSize", &HODigiSize, &b_HODigiSize);
-   fChain->SetBranchAddress("HODigiSubdet", &HODigiSubdet, &b_HODigiSubdet);
-   fChain->SetBranchAddress("HcalTriggerPrimitiveCompressedEtSOI", &HcalTriggerPrimitiveCompressedEtSOI, &b_HcalTriggerPrimitiveCompressedEtSOI);
-   fChain->SetBranchAddress("HcalTriggerPrimitiveFineGrainSOI", &HcalTriggerPrimitiveFineGrainSOI, &b_HcalTriggerPrimitiveFineGrainSOI);
-   fChain->SetBranchAddress("HcalTriggerPrimitiveIEta", &HcalTriggerPrimitiveIEta, &b_HcalTriggerPrimitiveIEta);
-   fChain->SetBranchAddress("HcalTriggerPrimitiveIPhi", &HcalTriggerPrimitiveIPhi, &b_HcalTriggerPrimitiveIPhi);
-   fChain->SetBranchAddress("HcalTriggerPrimitivePresamples", &HcalTriggerPrimitivePresamples, &b_HcalTriggerPrimitivePresamples);
-   fChain->SetBranchAddress("HcalTriggerPrimitiveSize", &HcalTriggerPrimitiveSize, &b_HcalTriggerPrimitiveSize);
-   fChain->SetBranchAddress("HcalUnpackerBadDigiDepth", &HcalUnpackerBadDigiDepth, &b_HcalUnpackerBadDigiDepth);
-   fChain->SetBranchAddress("HcalUnpackerBadDigiIEta", &HcalUnpackerBadDigiIEta, &b_HcalUnpackerBadDigiIEta);
-   fChain->SetBranchAddress("HcalUnpackerBadDigiIPhi", &HcalUnpackerBadDigiIPhi, &b_HcalUnpackerBadDigiIPhi);
-   fChain->SetBranchAddress("HcalUnpackerBadDigiSubdet", &HcalUnpackerBadDigiSubdet, &b_HcalUnpackerBadDigiSubdet);
+//   fChain->SetBranchAddress("HFDigiDepth", &HFDigiDepth, &b_HFDigiDepth);
+//   fChain->SetBranchAddress("HFDigiElectronicsID", &HFDigiElectronicsID, &b_HFDigiElectronicsID);
+//   fChain->SetBranchAddress("HFDigiFiberIdleOffset", &HFDigiFiberIdleOffset, &b_HFDigiFiberIdleOffset);
+//   fChain->SetBranchAddress("HFDigiIEta", &HFDigiIEta, &b_HFDigiIEta);
+//   fChain->SetBranchAddress("HFDigiIPhi", &HFDigiIPhi, &b_HFDigiIPhi);
+//   fChain->SetBranchAddress("HFDigiPresamples", &HFDigiPresamples, &b_HFDigiPresamples);
+//   fChain->SetBranchAddress("HFDigiRawID", &HFDigiRawID, &b_HFDigiRawID);
+//   fChain->SetBranchAddress("HFDigiSize", &HFDigiSize, &b_HFDigiSize);
+//   fChain->SetBranchAddress("HFDigiSubdet", &HFDigiSubdet, &b_HFDigiSubdet);
+//   fChain->SetBranchAddress("HODigiDepth", &HODigiDepth, &b_HODigiDepth);
+//   fChain->SetBranchAddress("HODigiElectronicsID", &HODigiElectronicsID, &b_HODigiElectronicsID);
+//   fChain->SetBranchAddress("HODigiFiberIdleOffset", &HODigiFiberIdleOffset, &b_HODigiFiberIdleOffset);
+//   fChain->SetBranchAddress("HODigiIEta", &HODigiIEta, &b_HODigiIEta);
+//   fChain->SetBranchAddress("HODigiIPhi", &HODigiIPhi, &b_HODigiIPhi);
+//   fChain->SetBranchAddress("HODigiPresamples", &HODigiPresamples, &b_HODigiPresamples);
+//   fChain->SetBranchAddress("HODigiRawID", &HODigiRawID, &b_HODigiRawID);
+//   fChain->SetBranchAddress("HODigiSize", &HODigiSize, &b_HODigiSize);
+//   fChain->SetBranchAddress("HODigiSubdet", &HODigiSubdet, &b_HODigiSubdet);
+//   fChain->SetBranchAddress("HcalTriggerPrimitiveCompressedEtSOI", &HcalTriggerPrimitiveCompressedEtSOI, &b_HcalTriggerPrimitiveCompressedEtSOI);
+//   fChain->SetBranchAddress("HcalTriggerPrimitiveFineGrainSOI", &HcalTriggerPrimitiveFineGrainSOI, &b_HcalTriggerPrimitiveFineGrainSOI);
+//   fChain->SetBranchAddress("HcalTriggerPrimitiveIEta", &HcalTriggerPrimitiveIEta, &b_HcalTriggerPrimitiveIEta);
+//   fChain->SetBranchAddress("HcalTriggerPrimitiveIPhi", &HcalTriggerPrimitiveIPhi, &b_HcalTriggerPrimitiveIPhi);
+//   fChain->SetBranchAddress("HcalTriggerPrimitivePresamples", &HcalTriggerPrimitivePresamples, &b_HcalTriggerPrimitivePresamples);
+//   fChain->SetBranchAddress("HcalTriggerPrimitiveSize", &HcalTriggerPrimitiveSize, &b_HcalTriggerPrimitiveSize);
+//   fChain->SetBranchAddress("HcalUnpackerBadDigiDepth", &HcalUnpackerBadDigiDepth, &b_HcalUnpackerBadDigiDepth);
+//   fChain->SetBranchAddress("HcalUnpackerBadDigiIEta", &HcalUnpackerBadDigiIEta, &b_HcalUnpackerBadDigiIEta);
+//   fChain->SetBranchAddress("HcalUnpackerBadDigiIPhi", &HcalUnpackerBadDigiIPhi, &b_HcalUnpackerBadDigiIPhi);
+//   fChain->SetBranchAddress("HcalUnpackerBadDigiSubdet", &HcalUnpackerBadDigiSubdet, &b_HcalUnpackerBadDigiSubdet);
    fChain->SetBranchAddress("HBHEDigiADC", &HBHEDigiADC, &b_HBHEDigiADC);
    fChain->SetBranchAddress("HBHEDigiCapID", &HBHEDigiCapID, &b_HBHEDigiCapID);
    fChain->SetBranchAddress("HBHEDigiDV", &HBHEDigiDV, &b_HBHEDigiDV);
@@ -504,42 +540,42 @@ void HcalTupleTree::Init(TTree *tree)
    fChain->SetBranchAddress("HBHEDigiFiberChan", &HBHEDigiFiberChan, &b_HBHEDigiFiberChan);
    fChain->SetBranchAddress("HBHEDigiLADC", &HBHEDigiLADC, &b_HBHEDigiLADC);
    fChain->SetBranchAddress("HBHEDigiRaw", &HBHEDigiRaw, &b_HBHEDigiRaw);
-   fChain->SetBranchAddress("HFDigiADC", &HFDigiADC, &b_HFDigiADC);
-   fChain->SetBranchAddress("HFDigiCapID", &HFDigiCapID, &b_HFDigiCapID);
-   fChain->SetBranchAddress("HFDigiDV", &HFDigiDV, &b_HFDigiDV);
-   fChain->SetBranchAddress("HFDigiER", &HFDigiER, &b_HFDigiER);
-   fChain->SetBranchAddress("HFDigiFiber", &HFDigiFiber, &b_HFDigiFiber);
-   fChain->SetBranchAddress("HFDigiFiberChan", &HFDigiFiberChan, &b_HFDigiFiberChan);
-   fChain->SetBranchAddress("HFDigiLADC", &HFDigiLADC, &b_HFDigiLADC);
-   fChain->SetBranchAddress("HFDigiRaw", &HFDigiRaw, &b_HFDigiRaw);
-   fChain->SetBranchAddress("HODigiADC", &HODigiADC, &b_HODigiADC);
-   fChain->SetBranchAddress("HODigiCapID", &HODigiCapID, &b_HODigiCapID);
-   fChain->SetBranchAddress("HODigiDV", &HODigiDV, &b_HODigiDV);
-   fChain->SetBranchAddress("HODigiER", &HODigiER, &b_HODigiER);
-   fChain->SetBranchAddress("HODigiFiber", &HODigiFiber, &b_HODigiFiber);
-   fChain->SetBranchAddress("HODigiFiberChan", &HODigiFiberChan, &b_HODigiFiberChan);
-   fChain->SetBranchAddress("HODigiLADC", &HODigiLADC, &b_HODigiLADC);
-   fChain->SetBranchAddress("HODigiRaw", &HODigiRaw, &b_HODigiRaw);
-   fChain->SetBranchAddress("HcalTriggerPrimitiveCompressedEt", &HcalTriggerPrimitiveCompressedEt, &b_HcalTriggerPrimitiveCompressedEt);
-   fChain->SetBranchAddress("HcalTriggerPrimitiveFineGrain", &HcalTriggerPrimitiveFineGrain, &b_HcalTriggerPrimitiveFineGrain);
-   fChain->SetBranchAddress("HcalTriggerPrimitiveHBHEDigiIndex", &HcalTriggerPrimitiveHBHEDigiIndex, &b_HcalTriggerPrimitiveHBHEDigiIndex);
-   fChain->SetBranchAddress("HcalTriggerPrimitiveHFDigiIndex", &HcalTriggerPrimitiveHFDigiIndex, &b_HcalTriggerPrimitiveHFDigiIndex);
+//   fChain->SetBranchAddress("HFDigiADC", &HFDigiADC, &b_HFDigiADC);
+//   fChain->SetBranchAddress("HFDigiCapID", &HFDigiCapID, &b_HFDigiCapID);
+//   fChain->SetBranchAddress("HFDigiDV", &HFDigiDV, &b_HFDigiDV);
+//   fChain->SetBranchAddress("HFDigiER", &HFDigiER, &b_HFDigiER);
+//   fChain->SetBranchAddress("HFDigiFiber", &HFDigiFiber, &b_HFDigiFiber);
+//   fChain->SetBranchAddress("HFDigiFiberChan", &HFDigiFiberChan, &b_HFDigiFiberChan);
+//   fChain->SetBranchAddress("HFDigiLADC", &HFDigiLADC, &b_HFDigiLADC);
+//   fChain->SetBranchAddress("HFDigiRaw", &HFDigiRaw, &b_HFDigiRaw);
+//   fChain->SetBranchAddress("HODigiADC", &HODigiADC, &b_HODigiADC);
+//   fChain->SetBranchAddress("HODigiCapID", &HODigiCapID, &b_HODigiCapID);
+//   fChain->SetBranchAddress("HODigiDV", &HODigiDV, &b_HODigiDV);
+//   fChain->SetBranchAddress("HODigiER", &HODigiER, &b_HODigiER);
+//   fChain->SetBranchAddress("HODigiFiber", &HODigiFiber, &b_HODigiFiber);
+//   fChain->SetBranchAddress("HODigiFiberChan", &HODigiFiberChan, &b_HODigiFiberChan);
+//   fChain->SetBranchAddress("HODigiLADC", &HODigiLADC, &b_HODigiLADC);
+//   fChain->SetBranchAddress("HODigiRaw", &HODigiRaw, &b_HODigiRaw);
+//   fChain->SetBranchAddress("HcalTriggerPrimitiveCompressedEt", &HcalTriggerPrimitiveCompressedEt, &b_HcalTriggerPrimitiveCompressedEt);
+//   fChain->SetBranchAddress("HcalTriggerPrimitiveFineGrain", &HcalTriggerPrimitiveFineGrain, &b_HcalTriggerPrimitiveFineGrain);
+//   fChain->SetBranchAddress("HcalTriggerPrimitiveHBHEDigiIndex", &HcalTriggerPrimitiveHBHEDigiIndex, &b_HcalTriggerPrimitiveHBHEDigiIndex);
+//   fChain->SetBranchAddress("HcalTriggerPrimitiveHFDigiIndex", &HcalTriggerPrimitiveHFDigiIndex, &b_HcalTriggerPrimitiveHFDigiIndex);
    fChain->SetBranchAddress("bx", &bx, &b_bx);
    fChain->SetBranchAddress("event", &event, &b_event);
    fChain->SetBranchAddress("ls", &ls, &b_ls);
    fChain->SetBranchAddress("run", &run, &b_run);
-   fChain->SetBranchAddress("HcalUnpackerAnyValid", &HcalUnpackerAnyValid, &b_HcalUnpackerAnyValid);
-   fChain->SetBranchAddress("HcalUnpackerBSYSpigots", &HcalUnpackerBSYSpigots, &b_HcalUnpackerBSYSpigots);
-   fChain->SetBranchAddress("HcalUnpackerBadQualityDigis", &HcalUnpackerBadQualityDigis, &b_HcalUnpackerBadQualityDigis);
-   fChain->SetBranchAddress("HcalUnpackerEmptySpigots", &HcalUnpackerEmptySpigots, &b_HcalUnpackerEmptySpigots);
-   fChain->SetBranchAddress("HcalUnpackerErrorFree", &HcalUnpackerErrorFree, &b_HcalUnpackerErrorFree);
-   fChain->SetBranchAddress("HcalUnpackerHasCalib", &HcalUnpackerHasCalib, &b_HcalUnpackerHasCalib);
-   fChain->SetBranchAddress("HcalUnpackerNZS", &HcalUnpackerNZS, &b_HcalUnpackerNZS);
-   fChain->SetBranchAddress("HcalUnpackerOFWSpigots", &HcalUnpackerOFWSpigots, &b_HcalUnpackerOFWSpigots);
-   fChain->SetBranchAddress("HcalUnpackerSpigotFormatErrors", &HcalUnpackerSpigotFormatErrors, &b_HcalUnpackerSpigotFormatErrors);
-   fChain->SetBranchAddress("HcalUnpackerTotalDigis", &HcalUnpackerTotalDigis, &b_HcalUnpackerTotalDigis);
-   fChain->SetBranchAddress("HcalUnpackerTotalHOTPDigis", &HcalUnpackerTotalHOTPDigis, &b_HcalUnpackerTotalHOTPDigis);
-   fChain->SetBranchAddress("HcalUnpackerTotalTPDigis", &HcalUnpackerTotalTPDigis, &b_HcalUnpackerTotalTPDigis);
+//   fChain->SetBranchAddress("HcalUnpackerAnyValid", &HcalUnpackerAnyValid, &b_HcalUnpackerAnyValid);
+//   fChain->SetBranchAddress("HcalUnpackerBSYSpigots", &HcalUnpackerBSYSpigots, &b_HcalUnpackerBSYSpigots);
+//   fChain->SetBranchAddress("HcalUnpackerBadQualityDigis", &HcalUnpackerBadQualityDigis, &b_HcalUnpackerBadQualityDigis);
+//   fChain->SetBranchAddress("HcalUnpackerEmptySpigots", &HcalUnpackerEmptySpigots, &b_HcalUnpackerEmptySpigots);
+//   fChain->SetBranchAddress("HcalUnpackerErrorFree", &HcalUnpackerErrorFree, &b_HcalUnpackerErrorFree);
+//   fChain->SetBranchAddress("HcalUnpackerHasCalib", &HcalUnpackerHasCalib, &b_HcalUnpackerHasCalib);
+//   fChain->SetBranchAddress("HcalUnpackerNZS", &HcalUnpackerNZS, &b_HcalUnpackerNZS);
+//   fChain->SetBranchAddress("HcalUnpackerOFWSpigots", &HcalUnpackerOFWSpigots, &b_HcalUnpackerOFWSpigots);
+//   fChain->SetBranchAddress("HcalUnpackerSpigotFormatErrors", &HcalUnpackerSpigotFormatErrors, &b_HcalUnpackerSpigotFormatErrors);
+//   fChain->SetBranchAddress("HcalUnpackerTotalDigis", &HcalUnpackerTotalDigis, &b_HcalUnpackerTotalDigis);
+//   fChain->SetBranchAddress("HcalUnpackerTotalHOTPDigis", &HcalUnpackerTotalHOTPDigis, &b_HcalUnpackerTotalHOTPDigis);
+//   fChain->SetBranchAddress("HcalUnpackerTotalTPDigis", &HcalUnpackerTotalTPDigis, &b_HcalUnpackerTotalTPDigis);
    Notify();
 }
 
