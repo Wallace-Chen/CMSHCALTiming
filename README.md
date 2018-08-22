@@ -25,7 +25,7 @@ Please check the nmethod=3 in the .C file before run if you want both informatio
 generate charge average timing by setting nmethod=1. It's not recommended to change this number to 2 or 3 since there's no corresponding codes to plot these histograms.
 
 
-__To run the code, of course you have to compile it by make. Before the make, please make sure you have the file analysisClass.C under the directory src which is a soft link to the .C file you want to run. And run for example: ./main  ./config/input_lists/main_input.txt ./tree_lists/tree_list.txt ./output.root __
+__To run the code, of course you have to compile it by make. Before the make, please make sure you have the file analysisClass.C under the directory src which is a soft link to the .C file you want to run. And run for example:__ ```./main  ./config/input_lists/main_input.txt ./tree_lists/tree_list.txt ./output.root ```
 
 _And to speed up, you may need to want use batch mode.To combine them into one file, use command: hadd result.root output*.root_
 
