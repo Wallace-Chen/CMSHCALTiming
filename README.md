@@ -12,7 +12,7 @@ Tasks generally have two categories:
 corresponding to two .C files under the macro directory: analysisClass_HBHETiming_reco.C and analysisClass_HBHETiming_digi.C
 Normally, people in PFG group cares about charge averaged timing while some people may want rechit timing.
 
-# Make NTupler
+# Make Histograms
 
 To run the code, please provide the bx.json and lumi.json, otherwise need to comment corresponding code in the .C file. Note you may want update these two files before you really want to use them. Of course, lumi part can be done in the Tuple making step. There's a link: https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/PromptReco/Cert_314472-317696_13TeV_PromptReco_Collisions18_JSON.txt, where you can check lumi sections.
 
@@ -27,7 +27,9 @@ generate charge average timing by setting nmethod=1. It's not recommended to cha
 
 __To run the code, of course you have to compile it by make. Before the make, please make sure you have the file analysisClass.C under the directory src which is a soft link to the .C file you want to run__
 
-_And to speed up, you may need to want use batch mode. There's a framework already set up to use by typing cdwork, and cd private/HCAL/PFG/. Here, please change the file path you want to run and replace with correct the executed file. Then run the script, after which you will have outputs under output directory. To combine them into one file, use command: hadd result.root output*.root_
+_And to speed up, you may need to want use batch mode.To combine them into one file, use command: hadd result.root output*.root_
+
+To use batch mode, please refer to the folder: work/Tools/batchmode, where you can find the script: run.sh. You have to have your exectable file and replace the name in the run.sh script (for example, main_check in the file) and put your NTuples path in the task_m0.txt file.
 
 # Make Plots
 Next step is to plot out the histograms. Corresponding, you have tow scripts: plot_reco.py and plot_digi.py.
