@@ -1,6 +1,6 @@
 This gives an instrution on how to generate histograms and plots about HB Timing based on PFG HcalTupleMaker (Will include HF Timing later)
 
-> Credits: Project forked from here,
+> Credits: Changes made based on this project:
 > Github website: https://github.com/HCALPFG/HcalTupleAnalyzer
 
 ---
@@ -38,4 +38,4 @@ Also, people want to know the timing vs Run# which can be done through the file:
 
 Note, whatever you change in the .C file, please make sure to edit in the plot script accordingly.
 
-It has to be mentioned if you directly use HCALPFG NTupler (https://github.com/HCALPFG/HcalTupleMaker) to generate the NTuples, you may not have reco infos then you cannot run this project on these NTuples about the reco part.
+__It has to be mentioned if you directly use HCALTupleMaker (https://github.com/HCALPFG/HcalTupleMaker) to generate the NTuples, you may not have reco infos then you cannot run this project on these NTuples about the reco part.__
