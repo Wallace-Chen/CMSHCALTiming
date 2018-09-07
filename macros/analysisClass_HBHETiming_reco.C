@@ -1,6 +1,7 @@
 #include "analysisClass.h"
 #include "HcalTupleTree.h"
-#include "HFDigi.h"
+//#include "HFDigi.h"
+#include "QIE10Digi.h"
 #include "HBHEDigi.h"
 #include "/afs/cern.ch/user/y/yuanc/jsoncpp/dist/jsoncpp.cpp"
 #include "/afs/cern.ch/user/y/yuanc/jsoncpp/dist/json/json.h"
@@ -58,7 +59,7 @@ void analysisClass::loop(){
   //--------------------------------------------------------------------------------
   // Turn on/off branches
   //--------------------------------------------------------------------------------
-  
+// HB Branches  
   tuple_tree -> fChain -> SetBranchStatus("*"               , kFALSE);
   tuple_tree -> fChain -> SetBranchStatus("run"             , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("bx"             , kTRUE);
@@ -72,6 +73,7 @@ void analysisClass::loop(){
   tuple_tree -> fChain -> SetBranchStatus("HBHEDigiRecTime"         , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("HBHEDigiEnergy"         , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("HBHEDigiADC"         , kTRUE);
+  tuple_tree -> fChain -> SetBranchStatus("HBHERecHitFlags"         , kTRUE);
 // Add RecHit Info for HBHE
 //  tuple_tree -> fChain -> SetBranchStatus("HBHERecHitEnergy"         , kTRUE);
 //  tuple_tree -> fChain -> SetBranchStatus("HBHERecHitTime"         , kTRUE);
@@ -80,7 +82,25 @@ void analysisClass::loop(){
 //  tuple_tree -> fChain -> SetBranchStatus("HBHERecHitDepth"         , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("HBHERecHitEnergyMethod0"         , kTRUE);
   tuple_tree -> fChain -> SetBranchStatus("HBHERecHitTimeMethod0"         , kTRUE);
+  tuple_tree -> fChain -> SetBranchStatus("HBHERecHitFlagsMethod0"         , kTRUE);
   
+//HE Branches
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiFC"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiDepth"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiFlags"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiIEta"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiIPhi"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiLinkError"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiRawID"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiSubdet"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiADC"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiCapID"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiLETDC"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiOK"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiSOI"         , kTRUE);
+//  tuple_tree -> fChain -> SetBranchStatus("QIE10DigiTETDC"         , kTRUE);
+
+
 // END
  
   reader.parse(in,root);
@@ -103,9 +123,12 @@ void analysisClass::loop(){
 //  int _iphi[] = {0,7,23,25,52,53,66}; //Input for iphis to check, the first elements is always 0 for all iphis
 //  int _iphi[] = {0}; //Input for iphis to check, the first elements is always 0 for all iphis
   int _length = (sizeof(_iphi)/sizeof(*_iphi));
-  int ieta_check_min=-7, ieta_check_max=-1, iphi_check_min=32, iphi_check_max=32, idepth_check_min=1, idepth_check_max=1; // channels to be checked, inclusive
-  int ieta_compare1_min=-7, ieta_compare1_max=-1, iphi_compare1_min=1, iphi_compare1_max=72, idepth_compare1_min=1, idepth_compare1_max=1; // channels to be compared, inclusive
-  int ieta_compare2_min=1, ieta_compare2_max=7, iphi_compare2_min=1, iphi_compare2_max=72, idepth_compare2_min=1, idepth_compare2_max=1; // channels to be checked, inclusive
+//  int ieta_check_min=-7, ieta_check_max=-1, iphi_check_min=32, iphi_check_max=32, idepth_check_min=1, idepth_check_max=1; // channels to be checked, inclusive
+  int ieta_check_min=-2, ieta_check_max=-1, iphi_check_min=60, iphi_check_max=60, idepth_check_min=1, idepth_check_max=1; // channels to be checked, inclusive
+//  int ieta_compare1_min=-7, ieta_compare1_max=-1, iphi_compare1_min=1, iphi_compare1_max=72, idepth_compare1_min=1, idepth_compare1_max=1; // channels to be compared, inclusive
+  int ieta_compare1_min=-3, ieta_compare1_max=-1, iphi_compare1_min=31, iphi_compare1_max=31, idepth_compare1_min=1, idepth_compare1_max=1; // channels to be compared, inclusive
+//  int ieta_compare2_min=1, ieta_compare2_max=7, iphi_compare2_min=1, iphi_compare2_max=72, idepth_compare2_min=1, idepth_compare2_max=1; // channels to be checked, inclusive
+  int ieta_compare2_min=-3, ieta_compare2_max=-2, iphi_compare2_min=23, iphi_compare2_max=23, idepth_compare2_min=1, idepth_compare2_max=1; // channels to be checked, inclusive
 
   int YnBin[3] = {100,500,500};
   float YminBin[3] = {1,-50,-50};
@@ -136,6 +159,9 @@ void analysisClass::loop(){
   TH1F *HBHE_FC_off[nieta][ndepth][nmethod];
   TH1F *HBHE_FC_in[nieta][ndepth][nmethod];
   TH1F *HBHE_PlaceHolder1[nieta][ndepth][nmethod];
+  TProfile *HBHE_PulseShape_off[nieta][ndepth][nmethod];
+  TProfile *HBHE_PulseShape_in[nieta][ndepth][nmethod];
+
   //Note the above five lines cannot change order randomly, otherwise, there will be error: <TH2:FILL> INVALID SIGNATURE, DO NOTHING
   //Possibly its related to memory allocation, not very clear right now.
   TString name;
@@ -151,8 +177,11 @@ void analysisClass::loop(){
   TH2F *HBHE_Timing_vs_iEta_ALL[nmethod];
 // Booking histograms for Timing Map
   TH3F *HBHE_TimingMap[nmethod];
+  TH3F *HBHE_TimingMap_NEF[nmethod];
   TH3F *HBHE_TimingMap_D1[nmethod];
+  TH3F *HBHE_TimingMap_D1_NEF[nmethod];
   TH3F *HBHE_TimingMap_D2[nmethod];
+  TH3F *HBHE_TimingMap_D2_NEF[nmethod];
 // Booking histograms for the plot of Pulse Shape
   TProfile *HBHE_PulseShape_ALL   = makeTProfile("HBHE_PulseShape_ALL","HBHE: TS3>30fC, Pulse Shape All Channels",8,0,8,0,150);
 //  TProfile *HBHE_PulseShape[nieta][niphi][ndepth];//note that /HBHE_PulseShapeiphi = 0 for all iphis
@@ -171,17 +200,27 @@ void analysisClass::loop(){
 //  TH2F *HBHE_SecondPeakMap_nEvt          = makeTH2F("HBHE_SecondPeakMap_nEvt"      ,"HBHE Second Peak Distribution ", 60, -29.5, 30.5, 74, 0, 74);
 //  TH2F *HBHE_NormalMap_nEvt          = makeTH2F("HBHE_NormalMap_nEvt"      ,"HBHE Normal Events Distribution ", 60, -29.5, 30.5, 74, 0, 74);
   
+  TH2F *HBHE_TEST_ALL[nmethod];
   TH2F *HBHE_TEST[nmethod];
+  TH2F *HBHE_TEST_NEF[nmethod];
   TH2F *HBHE_TEST_D1[nmethod];
+  TH2F *HBHE_TEST_D1_NEF[nmethod];
   TH2F *HBHE_TEST_D2[nmethod];
+  TH2F *HBHE_TEST_D2_NEF[nmethod];
   TH2F *HBHE_TEST_Minus[nmethod];
+  TH2F *HBHE_TEST_Minus_NEF[nmethod];
   TH2F *HBHE_TEST_Plus[nmethod];
+  TH2F *HBHE_TEST_Plus_NEF[nmethod];
   TH2F *HBHE_D1_SecondPeakMap_nEvt[nmethod];
+  TH2F *HBHE_D1_SecondPeakMap_nEvt_NEF[nmethod];
   TH2F *HBHE_D2_SecondPeakMap_nEvt[nmethod];
+  TH2F *HBHE_D2_SecondPeakMap_nEvt_NEF[nmethod];
   TH2F *HBHE_D1_NormalMap_nEvt[nmethod];
   TH2F *HBHE_D2_NormalMap_nEvt[nmethod];
   TH2F *HBHE_SecondPeakMap_nEvt[nmethod];
+//  TH2F *HBHE_SecondPeakMap_nEvt_NEF[nmethod];
   TH2F *HBHE_NormalMap_nEvt[nmethod];
+//  TH2F *HBHE_NormalMap_nEvt_NEF[nmethod];
 
 //  TH1F *HBHE_bxDis_SecondPeak = makeTH1F("HBHE_bxDis_SecondPeak","HBHE_bxDis_SecondPeak",3564,0,3564);
 //  TH1F *HBHE_bxDis_Normal = makeTH1F("HBHE_bxDis_Normal","HBHE_bxDis_Normal",3564,0,3564);
@@ -193,15 +232,25 @@ void analysisClass::loop(){
   for(int method=1;method<nmethod;method++){
     TString method_c=methodNo[method];
     
+    HBHE_TEST_ALL[method] = makeTH2F("TEST_ALL_"+method_c,"TEST_ALL_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
     HBHE_TEST[method] = makeTH2F("TEST_"+method_c,"TEST_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
+    HBHE_TEST_NEF[method] = makeTH2F("TEST_NEF_"+method_c,"TEST_NEF_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
     HBHE_TEST_D1[method] = makeTH2F("TEST_D1_"+method_c,"TEST_D1_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
+    HBHE_TEST_D1_NEF[method] = makeTH2F("TEST_D1_NEF_"+method_c,"TEST_D1_NEF_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
     HBHE_TEST_D2[method] = makeTH2F("TEST_D2_"+method_c,"TEST_D2_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
+    HBHE_TEST_D2_NEF[method] = makeTH2F("TEST_D2_NEF_"+method_c,"TEST_D2_NEF_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
     HBHE_TEST_Minus[method] = makeTH2F("TEST_M_"+method_c,"TEST_M_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
+    HBHE_TEST_Minus_NEF[method] = makeTH2F("TEST_M_NEF_"+method_c,"TEST_M_NEF_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
     HBHE_TEST_Plus[method] = makeTH2F("TEST_P_"+method_c,"TEST_P_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
+    HBHE_TEST_Plus_NEF[method] = makeTH2F("TEST_P_NEF_"+method_c,"TEST_P_NEF_"+method_c,3000,0,3000,YnBin[method],YminBin[method],YmaxBin[method]);
     HBHE_SecondPeakMap_nEvt[method] = makeTH2F("HBHE_SecondPeakMap_nEvt_"+method_c,"HBHE Second Peak Distribution_"+method_c, 60, -29.5, 30.5, 74, 0, 74);
+//    HBHE_SecondPeakMap_nEvt_NEF[method] = makeTH2F("HBHE_SecondPeakMap_nEvt_NEF_"+method_c,"HBHE Second Peak Distribution_NEF_"+method_c, 60, -29.5, 30.5, 74, 0, 74);
     HBHE_NormalMap_nEvt[method] = makeTH2F("HBHE_NormalMap_nEvt_"+method_c,"HBHE Normal Events Distribution_"+method_c,60, -29.5, 30.5, 74, 0, 74);
+//    HBHE_NormalMap_nEvt_NEF[method] = makeTH2F("HBHE_NormalMap_nEvt_NEF_"+method_c,"HBHE Normal Events Distribution_NEF_"+method_c,60, -29.5, 30.5, 74, 0, 74);
     HBHE_D1_SecondPeakMap_nEvt[method] = makeTH2F("HBHE_D1_SecondPeakMap_nEvt_"+method_c,"HBHE Second Peak Distribution_D1_"+method_c, 60, -29.5, 30.5, 74, 0, 74);
+    HBHE_D1_SecondPeakMap_nEvt_NEF[method] = makeTH2F("HBHE_D1_SecondPeakMap_nEvt_NEF_"+method_c,"HBHE Second Peak Distribution_D1_NEF_"+method_c, 60, -29.5, 30.5, 74, 0, 74);
     HBHE_D2_SecondPeakMap_nEvt[method] = makeTH2F("HBHE_D2_SecondPeakMap_nEvt_"+method_c,"HBHE Second Peak Distribution_D2_"+method_c, 60, -29.5, 30.5, 74, 0, 74);
+    HBHE_D2_SecondPeakMap_nEvt_NEF[method] = makeTH2F("HBHE_D2_SecondPeakMap_nEvt_NEF_"+method_c,"HBHE Second Peak Distribution_D2_NEF_"+method_c, 60, -29.5, 30.5, 74, 0, 74);
     HBHE_D1_NormalMap_nEvt[method] = makeTH2F("HBHE_D1_NormalMap_nEvt_"+method_c,"HBHE Normal Events Distribution_D1_"+method_c,60, -29.5, 30.5, 74, 0, 74);
     HBHE_D2_NormalMap_nEvt[method] = makeTH2F("HBHE_D2_NormalMap_nEvt_"+method_c,"HBHE Normal Events Distribution_D2_"+method_c,60, -29.5, 30.5, 74, 0, 74);
 
@@ -213,8 +262,11 @@ void analysisClass::loop(){
     HBHE_Timing_vs_iEta_ALL[method] = makeTH2F("HBHE_Timing_vs_iEta_"+method_c,methodName[method]+" vs iEta",61,-30.5,30.5,YnBin[method],YminBin[method],YmaxBin[method]);
     
     HBHE_TimingMap[method]            = makeTH3F("HBHE_TimingMap_"+method_c,"HBHE Timing Map "+method_c, 60, -29.5, 30.5, 74, 0, 74, YnBin[method],YminBin[method],YmaxBin[method]);
+    HBHE_TimingMap_NEF[method]            = makeTH3F("HBHE_TimingMap_NEF_"+method_c,"HBHE Timing Map NEF "+method_c, 60, -29.5, 30.5, 74, 0, 74, YnBin[method],YminBin[method],YmaxBin[method]);
     HBHE_TimingMap_D1[method]            = makeTH3F("HBHE_TimingMap_D1_"+method_c,"HBHE Timing Map Depth 1 "+method_c, 60, -29.5, 30.5, 74, 0, 74, YnBin[method],YminBin[method],YmaxBin[method]);
+    HBHE_TimingMap_D1_NEF[method]            = makeTH3F("HBHE_TimingMap_D1_NEF_"+method_c,"HBHE Timing Map Depth 1 NEF "+method_c, 60, -29.5, 30.5, 74, 0, 74, YnBin[method],YminBin[method],YmaxBin[method]);
     HBHE_TimingMap_D2[method]            = makeTH3F("HBHE_TimingMap_D2_"+method_c,"HBHE Timing Map Depth 2 "+method_c, 60, -29.5, 30.5, 74, 0, 74, YnBin[method],YminBin[method],YmaxBin[method]);
+    HBHE_TimingMap_D2_NEF[method]            = makeTH3F("HBHE_TimingMap_D2_NEF_"+method_c,"HBHE Timing Map Depth 2 NEF "+method_c, 60, -29.5, 30.5, 74, 0, 74, YnBin[method],YminBin[method],YmaxBin[method]);
 
   }
 
@@ -238,6 +290,11 @@ void analysisClass::loop(){
         HBHE_FC_off[ieta][depth][method]->Sumw2();
         HBHE_FC_in[ieta][depth][method] = makeTH1F("HBHE_FC_in"+name+method_c,"FC distribution in timing"+name+method_c,3000,0,3000);
         HBHE_FC_in[ieta][depth][method]->Sumw2();
+
+        HBHE_PulseShape_off[ieta][depth][method] = makeTProfile("HBHE_PulseShape_off"+name+method_c,"HBHE: TS3>30fC, Pulse Shape"+name+" TS3>30 fC",8,0,8,0,150);
+        HBHE_PulseShape_off[ieta][depth][method]->Sumw2();
+        HBHE_PulseShape_in[ieta][depth][method] = makeTProfile("HBHE_PulseShape_in"+name+method_c,"HBHE: TS3>30fC, Pulse Shape"+name+" TS3>30 fC",8,0,8,0,150);
+        HBHE_PulseShape_in[ieta][depth][method]->Sumw2();
       }
     }
   }
@@ -309,7 +366,7 @@ void analysisClass::loop(){
 
   float TS[8]={0},hbhe_energy=0, hbhe_recTime=0, hbhe_recHitEnergyMethod0=0,hbhe_recHitTimeMethod0=0;
   int hbhe_recHitIeta=0,hbhe_recHitIphi=0,hbhe_recHitDepth=0;
-  int   hbhe_depth=0, hbhe_ieta=0, hbhe_iphi=0,hbhe_run=0, hbhe_ls=0, hbhe_bx=0;
+  int   hbhe_depth=0, hbhe_ieta=0, hbhe_iphi=0,hbhe_run=0, hbhe_ls=0, hbhe_bx=0, hbhe_flag=0, hbhe_flagMethod0=0;
 
   int  nTS_fired[3] ={0,0,0};
 
@@ -360,7 +417,7 @@ void analysisClass::loop(){
 //   if( !bxValid ) {eventSkip++;continue;} //skip if ls is not in the range
 
     CollectionPtr hbheDigis (new Collection(*tuple_tree, tuple_tree -> HBHEDigiIEta -> size()));
-    // CollectionPtr hbheDigis (new Collection(*tuple_tree, tuple_tree -> HBHERecHitIEta -> size()));
+    //CollectionPtr hbheDigis (new Collection(*tuple_tree, tuple_tree -> HBHERecHitIEta -> size()));
 
     // nObj = total # of HBHE pulses in the current event
     nHBHEDigis = hbheDigis->GetSize();  
@@ -381,10 +438,15 @@ void analysisClass::loop(){
       hbhe_recTime= hbheDigi.recHitTime();
       hbhe_ieta =   hbheDigi.ieta();
       hbhe_iphi =   hbheDigi.iphi();
+      hbhe_flag   = hbheDigi.flag();
       hbhe_recHitTimeMethod0 = hbheDigi.RecHitTimeMethod0(); 
+      //hbhe_recHitTimeMethod0 = 10;
       hbhe_recHitEnergyMethod0 = hbheDigi.RecHitEnergyMethod0(); 
+      hbhe_flagMethod0   = hbheDigi.flagMethod0();
+      //hbhe_recHitEnergyMethod0 = 0; 
 //      std::cout<<"RecHit " << " energy and time are: " << hbhe_energy << " " << hbhe_recTime << std::endl;
 //      std::cout<<"Method0 " << " energy and time are: " << hbhe_recHitEnergyMethod0 << " " << hbhe_recHitTimeMethod0 << std::endl;
+//      if(((hbhe_flag>>27)&1)==1) std::cout<<"Flag is: " << hbhe_flag << " FlagM0 is: " << hbhe_flagMethod0 << std::endl;
 //      hbhe_recHitIeta = hbheDigi.RecHitIeta(); 
 //      hbhe_recHitIphi = hbheDigi.RecHitIphi(); 
 //      hbhe_recHitDepth = hbheDigi.RecHitDepth(); 
@@ -404,7 +466,8 @@ void analysisClass::loop(){
   // Start Filling Histograms
   //--------------------------------------------------------------------------------
 //	 if(TS[3]>30){
-	 if(TS[3]>10){
+//	 if(TS[3]>10){
+	 if(TS[3]>0){
 //	 if(hbhe_energy>5){
     HBHE_TSRatioMap_nEvt->Fill(hbhe_ieta,hbhe_iphi);
 //    HBHEALLFC = TS0 + TS1 + TS2 + TS3 + TS4 + TS5 + TS6 + TS7;
@@ -442,16 +505,111 @@ void analysisClass::loop(){
 
       float Energy =  ( (method==1) ?  hbhe_energy : hbhe_recHitEnergyMethod0);
       float Time   = ( (method==1) ?  hbhe_recTime: hbhe_recHitTimeMethod0);
+      int   Flag   = ( (method==1) ? hbhe_flag : hbhe_flagMethod0);
+      
+      if(((Flag>>27)&1)==1){
+        HBHE_TEST_NEF[method]->Fill(Energy,Time);
+        if(hbhe_ieta<0) HBHE_TEST_Minus_NEF[method]->Fill(Energy,Time);
+        if(hbhe_ieta>0) HBHE_TEST_Plus_NEF[method]->Fill(Energy,Time);
+        if(hbhe_depth==1) HBHE_TEST_D1_NEF[method]->Fill(Energy,Time);
+        if(hbhe_depth==2) HBHE_TEST_D2_NEF[method]->Fill(Energy,Time);
 
-      HBHE_Timing_vs_Energy_All[method]->Fill(Energy,Time);
-      HBHE_TEST[method]->Fill(Energy,Time);
-      if(hbhe_ieta<0) HBHE_TEST_Minus[method]->Fill(Energy,Time);
-      if(hbhe_ieta>0) HBHE_TEST_Plus[method]->Fill(Energy,Time);
-      if(hbhe_depth==1) HBHE_TEST_D1[method]->Fill(Energy,Time);
-      if(hbhe_depth==2) HBHE_TEST_D2[method]->Fill(Energy,Time);
+        // Fill histograms for Bifurcation and Normal Events
+        if(Energy>30){
+          if(method==1){//MAHI
+            if(Time < -2){
+              if(hbhe_depth==1) HBHE_D1_SecondPeakMap_nEvt_NEF[1]->Fill(hbhe_ieta,hbhe_iphi);
+              if(hbhe_depth==2) HBHE_D2_SecondPeakMap_nEvt_NEF[1]->Fill(hbhe_ieta,hbhe_iphi);
+            }
+          }
+          else if(method==2){//M0
+            if(Time < (3.28325*log10(Energy)-12.5)){
+              if(hbhe_depth==1) HBHE_D1_SecondPeakMap_nEvt_NEF[2]->Fill(hbhe_ieta,hbhe_iphi);
+              if(hbhe_depth==2) HBHE_D2_SecondPeakMap_nEvt_NEF[2]->Fill(hbhe_ieta,hbhe_iphi);
+            }
+          }
+        }
+      }
+
+      
+      if(((Flag>>27)&1)!=1){
+        HBHE_TEST[method]->Fill(Energy,Time);
+        if(hbhe_ieta<0) HBHE_TEST_Minus[method]->Fill(Energy,Time);
+        if(hbhe_ieta>0) HBHE_TEST_Plus[method]->Fill(Energy,Time);
+        if(hbhe_depth==1) HBHE_TEST_D1[method]->Fill(Energy,Time);
+        if(hbhe_depth==2) HBHE_TEST_D2[method]->Fill(Energy,Time);
+
+        // Fill histograms for Bifurcation and Normal Events
+        if(Energy>30){
+          if(method==1){//MAHI
+            if(Time < -2){
+              HBHE_Timing_vs_Energy_M0_from_MAHI->Fill(hbhe_recHitEnergyMethod0,hbhe_recHitTimeMethod0); 
+              if(hbhe_depth==1) HBHE_D1_SecondPeakMap_nEvt[1]->Fill(hbhe_ieta,hbhe_iphi);
+              if(hbhe_depth==2) HBHE_D2_SecondPeakMap_nEvt[1]->Fill(hbhe_ieta,hbhe_iphi);
+            }
+            else{
+              if(hbhe_depth==1) HBHE_D1_NormalMap_nEvt[1]->Fill(hbhe_ieta,hbhe_iphi);
+              if(hbhe_depth==2) HBHE_D2_NormalMap_nEvt[1]->Fill(hbhe_ieta,hbhe_iphi);
+            }
+          }
+          else if(method==2){//M0
+            if(Time < (3.28325*log10(Energy)-12.5)){
+              HBHE_Timing_vs_Energy_MAHI_from_M0->Fill(hbhe_energy, hbhe_recTime);
+              if(hbhe_depth==1) HBHE_D1_SecondPeakMap_nEvt[2]->Fill(hbhe_ieta,hbhe_iphi);
+              if(hbhe_depth==2) HBHE_D2_SecondPeakMap_nEvt[2]->Fill(hbhe_ieta,hbhe_iphi);
+            }
+            else{
+              if(hbhe_depth==1) HBHE_D1_NormalMap_nEvt[2]->Fill(hbhe_ieta,hbhe_iphi);
+              if(hbhe_depth==2) HBHE_D2_NormalMap_nEvt[2]->Fill(hbhe_ieta,hbhe_iphi);
+            }
+          }
+        }
+      }
+      
+      if(((Flag>>27)&1)==1){
+        HBHE_TimingMap_NEF[method]->Fill(hbhe_ieta,hbhe_iphi,Time);
+        if(hbhe_depth==1) {
+          HBHE_TimingMap_D1_NEF[method]->Fill(hbhe_ieta,hbhe_iphi,Time);
+//        HBHE_TEST_D1->Fill(Energy,Time);
+        }
+        if(hbhe_depth==2) {
+          HBHE_TimingMap_D2_NEF[method]->Fill(hbhe_ieta,hbhe_iphi,Time);
+//          HBHE_TEST_D2->Fill(Energy,Time);
+        }
+      }
+// Per Georgia request, we look at distribution with and without noisy hits applied
+      HBHE_RecHitEnergy_off[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(Energy); 
+      HBHE_ADC_off[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(HBHEADC); 
+      HBHE_FC_off[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(HBHEALLFC);          
+      for(int i=0;i<8;i++){
+        HBHE_PulseShape_off[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(i,TS[i]);
+      }
+//      else if(Time<1 && Time>-1){
+      if(((Flag>>27)&1)!=1){
+        HBHE_TimingMap[method]->Fill(hbhe_ieta,hbhe_iphi,Time);
+        if(hbhe_depth==1) {
+          HBHE_TimingMap_D1[method]->Fill(hbhe_ieta,hbhe_iphi,Time);
+//        HBHE_TEST_D1->Fill(Energy,Time);
+        }
+        if(hbhe_depth==2) {
+          HBHE_TimingMap_D2[method]->Fill(hbhe_ieta,hbhe_iphi,Time);
+//          HBHE_TEST_D2->Fill(Energy,Time);
+        }
+
+        HBHE_RecHitEnergy_in[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(Energy); 
+        HBHE_ADC_in[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(HBHEADC);
+        HBHE_FC_in[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(HBHEALLFC);          
+        for(int i=0;i<8;i++){
+          HBHE_PulseShape_in[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(i,TS[i]);
+        }
+     }
 //      std::cout<<"RecHit " << " energy and time are: " << hbhe_energy << " " << hbhe_recTime << std::endl;
 //      std::cout<<"Method0 " << " energy and time are: " << hbhe_recHitEnergyMethod0 << " " << hbhe_recHitTimeMethod0 << std::endl;
 //      std::cout<<"Method Num" << method << " energy and time are: " << Energy << " " << Time << std::endl;
+      HBHE_TEST_ALL[method]->Fill(Energy,Time);
+      HBHE_Timing_vs_Energy_All[method]->Fill(Energy,Time);
+      HBHE_Timing_vs_iEta_ALL[method]->Fill(hbhe_ieta,Time);
+      
       HBHE_Timing_vs_Energy[hbhe_ieta+minieta][0][hbhe_depth-minidepth][method]->Fill(Energy,Time);
       HBHE_RecHitTiming[hbhe_ieta+minieta][0][hbhe_depth-minidepth][method]->Fill(Time);
       HBHE_RecHitEnergy[hbhe_ieta+minieta][0][hbhe_depth-minidepth][method]->Fill(Energy);
@@ -474,54 +632,10 @@ void analysisClass::loop(){
 //        HBHE_lumiDis_Normal->Fill(hbhe_ls);
 //      }
 // Fill histograms for off-timing and in-timing plots
-      if(Time<-2){
-        HBHE_RecHitEnergy_off[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(Energy); 
-        HBHE_ADC_off[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(HBHEADC); 
-        HBHE_FC_off[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(HBHEALLFC);          
-      }
-      else if(Time<1 && Time>-1){
-        HBHE_RecHitEnergy_in[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(Energy); 
-        HBHE_ADC_in[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(HBHEADC);
-        HBHE_FC_in[hbhe_ieta+minieta][hbhe_depth-minidepth][method]->Fill(HBHEALLFC);          
-     }
+//      if(Time<-2){
   
 
-// Fill histograms for Bifurcation and Normal Events
-      if(Energy>30){
-        if(method==1){//MAHI
-          if(Time < -2){
-            HBHE_Timing_vs_Energy_M0_from_MAHI->Fill(hbhe_recHitEnergyMethod0,hbhe_recHitTimeMethod0); 
-            if(hbhe_depth==1) HBHE_D1_SecondPeakMap_nEvt[1]->Fill(hbhe_ieta,hbhe_iphi);
-            if(hbhe_depth==2) HBHE_D2_SecondPeakMap_nEvt[1]->Fill(hbhe_ieta,hbhe_iphi);
-          }
-          else{
-            if(hbhe_depth==1) HBHE_D1_NormalMap_nEvt[1]->Fill(hbhe_ieta,hbhe_iphi);
-            if(hbhe_depth==2) HBHE_D2_NormalMap_nEvt[1]->Fill(hbhe_ieta,hbhe_iphi);
-          }
-        }
-        else if(method==2){//M0
-          if(Time < (3.28325*log10(Energy)-12.5)){
-            HBHE_Timing_vs_Energy_MAHI_from_M0->Fill(hbhe_energy, hbhe_recTime);
-            if(hbhe_depth==1) HBHE_D1_SecondPeakMap_nEvt[2]->Fill(hbhe_ieta,hbhe_iphi);
-            if(hbhe_depth==2) HBHE_D2_SecondPeakMap_nEvt[2]->Fill(hbhe_ieta,hbhe_iphi);
-          }
-          else{
-            if(hbhe_depth==1) HBHE_D1_NormalMap_nEvt[2]->Fill(hbhe_ieta,hbhe_iphi);
-            if(hbhe_depth==2) HBHE_D2_NormalMap_nEvt[2]->Fill(hbhe_ieta,hbhe_iphi);
-          }
-        }
-      }
 
-      HBHE_Timing_vs_iEta_ALL[method]->Fill(hbhe_ieta,Time);
-      HBHE_TimingMap[method]->Fill(hbhe_ieta,hbhe_iphi,Time);
-      if(hbhe_depth==1) {
-        HBHE_TimingMap_D1[method]->Fill(hbhe_ieta,hbhe_iphi,Time);
-//        HBHE_TEST_D1->Fill(Energy,Time);
-      }
-      if(hbhe_depth==2) {
-        HBHE_TimingMap_D2[method]->Fill(hbhe_ieta,hbhe_iphi,Time);
-//        HBHE_TEST_D2->Fill(Energy,Time);
-      }
   //  Fill histogram for check channels
       if(ieta_check_min <= hbhe_ieta && hbhe_ieta <= ieta_check_max)
       {
@@ -676,7 +790,7 @@ void analysisClass::loop(){
   std::cout << "IDepth from " << idepth_compare2_min << " to " << idepth_compare2_max << std::endl;
 
   std::cout << "Has skipped: " << eventSkip << " events\n";
-//  return;
+  return;
 //------------------------------------------------------------------
 // Pipe some parameters to the script: plot.py to get better drawing
 //------------------------------------------------------------------

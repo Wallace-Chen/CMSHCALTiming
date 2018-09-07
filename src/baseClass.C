@@ -140,6 +140,12 @@ TProfile* baseClass::makeTProfile(const char * name, const char * title, int nbi
   return hist;
 }
 
+TProfile2D* baseClass::makeTProfile2D(const char * name, const char * title, int nbinsx, float xmin, float xmax, int nbinsy, float ymin, float ymax){
+  TProfile2D* hist = new TProfile2D(name, title, nbinsx, xmin, xmax, nbinsy, ymin, ymax);
+  m_objects.push_back(hist);
+  return hist;
+}
+
 TH3F* baseClass::makeTH3F(const char * name,const char * title, int nbinsx, float xmin, float xmax, int nbinsy, float ymin, float ymax, int nbinsz, float zmin, float zmax){
   TH3F* hist = new TH3F(name, title, nbinsx, xmin, xmax, nbinsy, ymin, ymax, nbinsz, zmin, zmax );
   m_objects.push_back(hist);

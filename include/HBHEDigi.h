@@ -22,6 +22,7 @@ class HBHEDigi : public HcalDigi {
   int   presamples() ;
   int   electronicsId();
   int   rawId();
+  int   flag();
   float fc (int i);
   int adc(int i);
   int dv (int i);
@@ -36,6 +37,7 @@ class HBHEDigi : public HcalDigi {
   int   RecHitDepth();
   float RecHitEnergyMethod0();
   float RecHitTimeMethod0 ();
+  int   flagMethod0();
 // END
   int   run();
   int   bx();

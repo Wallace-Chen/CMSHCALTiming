@@ -21,6 +21,9 @@ int   HBHEDigi::subdet       () {return m_collection -> GetData() -> HBHEDigiSub
 int   HBHEDigi::size         () {return m_collection -> GetData() -> HBHEDigiSize          -> at(m_raw_index);}
 int   HBHEDigi::presamples   () {return m_collection -> GetData() -> HBHEDigiPresamples    -> at(m_raw_index);}
 int   HBHEDigi::rawId        () {return m_collection -> GetData() -> HBHEDigiRawID         -> at(m_raw_index);}
+int   HBHEDigi::flag         () {
+//        std::cout << "HBHERecHitFlags is: " << m_collection -> GetData() -> HBHERecHitFlags -> at(m_raw_index) << std::endl;
+        return m_collection -> GetData() -> HBHERecHitFlags       -> at(m_raw_index);}
 int   HBHEDigi::electronicsId() {return -1; }
 float HBHEDigi::fc      (int i) {return m_collection -> GetData() -> HBHEDigiFC            -> at(m_raw_index)[i];}
 int   HBHEDigi::adc     (int i) {return m_collection -> GetData() -> HBHEDigiADC           -> at(m_raw_index)[i];}
@@ -34,6 +37,7 @@ float HBHEDigi::RecHitEnergy () {return m_collection -> GetData() -> HBHERecHitE
 int   HBHEDigi::RecHitDepth  () {return m_collection -> GetData() -> HBHERecHitDepth       -> at(m_raw_index);}
 int   HBHEDigi::RecHitIeta   () {return m_collection -> GetData() -> HBHERecHitIEta        -> at(m_raw_index);}
 int   HBHEDigi::RecHitIphi   () {return m_collection -> GetData() -> HBHERecHitIPhi        -> at(m_raw_index);}
+int   HBHEDigi::flagMethod0  () {return m_collection -> GetData() -> HBHERecHitFlagsMethod0-> at(m_raw_index);}
 float HBHEDigi::RecHitTimeMethod0   () {
 //        std::cout << "HBHERecHitTimeMethod0 is: " << m_collection -> GetData() -> HBHERecHitTimeMethod0        -> at(m_raw_index) << std::endl;
         return m_collection -> GetData() -> HBHERecHitTimeMethod0        -> at(m_raw_index);}

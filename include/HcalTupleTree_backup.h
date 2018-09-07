@@ -28,9 +28,7 @@ public :
 // Add RecHits Info for HBHE
    vector<float>   *HBHERecHitEnergyMethod0;
    vector<float>   *HBHERecHitTimeMethod0;
-   vector<int>     *HBHERecHitFlagsMethod0;
    
-   vector<int>   *HBHERecHitFlags;
    vector<int>   *HBHERecHitIEta;
    vector<int>   *HBHERecHitIPhi;
    vector<int>   *HBHERecHitDepth;
@@ -175,11 +173,9 @@ public :
    TBranch      *b_HBHERecHitDepth; //!
    TBranch      *b_HBHERecHitEnergy;  //!
    TBranch      *b_HBHERecHitTime;  //!
-   TBranch      *b_HBHERecHitFlags;  //!
    
    TBranch      *b_HBHERecHitEnergyMethod0;  //!
    TBranch      *b_HBHERecHitTimeMethod0;  //!
-   TBranch      *b_HBHERecHitFlagsMethod0;  //!
 // END
    TBranch        *b_HBHEDigiEta;   //!
    TBranch        *b_HBHEDigiPhi;   //!
@@ -382,10 +378,8 @@ void HcalTupleTree::Init(TTree *tree)
    HBHERecHitDepth = 0;
    HBHERecHitEnergy = 0;
    HBHERecHitTime = 0;
-   HBHERecHitFlags = 0;
    HBHERecHitEnergyMethod0 = 0;
    HBHERecHitTimeMethod0 = 0;
-   HBHERecHitFlagsMethod0 = 0;
    
    HBHEDigiEta = 0;
    HBHEDigiPhi = 0;
@@ -485,7 +479,7 @@ void HcalTupleTree::Init(TTree *tree)
    HcalTriggerPrimitiveFineGrain = 0;
    HcalTriggerPrimitiveHBHEDigiIndex = 0;
    HcalTriggerPrimitiveHFDigiIndex = 0;
-   //QIE10 for HF after 2017/   QIE10DigiFC = 0;
+   //QIE10 for HF after 2017
    QIE10DigiFC = 0;
    QIE10DigiDepth = 0;
    QIE10DigiFlags = 0;
@@ -512,11 +506,9 @@ void HcalTupleTree::Init(TTree *tree)
 //   fChain->SetBranchAddress("HBHERecHitDepth", &HBHERecHitDepth, &b_HBHERecHitDepth);
 //   fChain->SetBranchAddress("HBHERecHitEnergy", &HBHERecHitEnergy, &b_HBHERecHitEnergy);
 //   fChain->SetBranchAddress("HBHERecHitTime", &HBHERecHitTime, &b_HBHERecHitTime);
-   fChain->SetBranchAddress("HBHERecHitEnergyMethod0", &HBHERecHitEnergyMethod0, &b_HBHERecHitEnergyMethod0);
-   fChain->SetBranchAddress("HBHERecHitTimeMethod0", &HBHERecHitTimeMethod0, &b_HBHERecHitTimeMethod0);
-   fChain->SetBranchAddress("HBHERecHitFlagsMethod0", &HBHERecHitFlagsMethod0, &b_HBHERecHitFlagsMethod0);
+//   fChain->SetBranchAddress("HBHERecHitEnergyMethod0", &HBHERecHitEnergyMethod0, &b_HBHERecHitEnergyMethod0);
+//   fChain->SetBranchAddress("HBHERecHitTimeMethod0", &HBHERecHitTimeMethod0, &b_HBHERecHitTimeMethod0);
    
-   fChain->SetBranchAddress("HBHERecHitFlags", &HBHERecHitFlags, &b_HBHERecHitFlags);
    fChain->SetBranchAddress("HBHEDigiEta", &HBHEDigiEta, &b_HBHEDigiEta);
    fChain->SetBranchAddress("HBHEDigiPhi", &HBHEDigiPhi, &b_HBHEDigiPhi);
    fChain->SetBranchAddress("HBHEDigiRecEnergy", &HBHEDigiRecEnergy, &b_HBHEDigiRecEnergy);

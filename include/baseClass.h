@@ -15,6 +15,7 @@
 #include "TH2F.h"
 #include "TH3F.h"
 #include <TProfile.h>
+#include <TProfile2D.h>
 #include "TH1.h"
 #include "TGraph.h"
 
@@ -41,6 +42,7 @@ class baseClass {
   TH2F* makeTH2F(const char * name, const char * title, int nbinsx, float xmin, float xmax, int nbinsy, float ymin, float ymax);
   TProfile* makeTProfile(const char * name, const char * title, int nbinsx, float xmin, float xmax);
   TProfile* makeTProfile(const char * name, const char * title, int nbinsx, float xmin, float xmax, float ymin, float ymax);
+  TProfile2D* makeTProfile2D(const char * name, const char * title, int nbinsx, float xmin, float xmax, int nbinsy, float ymin, float ymax);
   TH3F* makeTH3F(const char * name, const char * title, int nbinsx, float xmin, float xmax, int nbinsy, float ymin, float ymax, int nbinsz, float zmin, float zmax);
   TGraph* makeTGraph(int n, const double* x, const double* y);
   TGraph* makeTGraph();
