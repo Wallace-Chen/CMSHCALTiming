@@ -39,3 +39,4 @@ Also, people want to know the timing vs Run# which can be done through the file:
 Note, whatever you change in the .C file, please make sure to edit in the plot script accordingly.
 
 __It has to be mentioned if you directly use HCALTupleMaker (https://github.com/HCALPFG/HcalTupleMaker) to generate the NTuples, you may not have reco infos then you cannot run this project on these NTuples about the reco part.__
+__Also need to install json reader in order to enable lumi and bx selection__
